@@ -1,0 +1,22 @@
+my:
+  name: forezp
+  age: 12
+  number:  ${random.int}
+  uuid : ${random.uuid}
+  max: ${random.int(10)}
+  value: ${random.value}
+  greeting: hi,i'm  ${my.name}
+
+zcssc:
+  config:
+      session:
+          ruyi:
+            driverKey: webdriver.chrome.driver
+            driverValueFile: D:\lxf\my-study-workspace\zcssc\src\main\resources\chromedriver.exe
+            url: https://www-ry999.com/
+            userName: a920259310
+            passWord: a19931006
+
+spring:
+  profiles:
+    active: test
