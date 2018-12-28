@@ -1,7 +1,7 @@
 package com.springboot.zcssc.zcssc.bean.db;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "cp_open_data")
 public class CpOpenData {
