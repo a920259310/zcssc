@@ -1,6 +1,7 @@
 package com.springboot.zcssc.session.dao.impl;
 
 import com.springboot.zcssc.session.bean.RuYiBean;
+import com.springboot.zcssc.session.bean.RuYiBeanComparator;
 import com.springboot.zcssc.session.dao.RuYiHttpDao;
 import com.springboot.zcssc.utils.DateUtil;
 import com.springboot.zcssc.utils.JSONUtils;
@@ -48,12 +49,24 @@ public class RuYiHttpDaoImpl implements RuYiHttpDao {
 
         List<RuYiBean> ruYiBeans = JSONUtils.toList(responseBodyAsString, RuYiBean.class);
 
+        Collections.sort(ruYiBeans, new RuYiBeanComparator());
+
         return ruYiBeans;
     }
 
     @Override
     public List<RuYiBean> getDataByDate() throws IOException {
         return getDataByDate(new Date());
+    }
+
+    @Override
+    public RuYiBean getLastDataByDate() throws IOException {
+
+        List<RuYiBean> dataByDate = getDataByDate();
+
+        if(CollectionUtils.isEmpty(dataByDate)) return null;
+
+        return dataByDate.get(dataByDate.size() - 1);
     }
 
     @Override
@@ -70,13 +83,6 @@ public class RuYiHttpDaoImpl implements RuYiHttpDao {
         Date cruDate = new Date();
         List<RuYiBean> dataByDate = getDataByDate(cruDate);
         if (CollectionUtils.isEmpty(dataByDate)) return null;
-
-        Collections.sort(dataByDate, new Comparator<RuYiBean>() {
-            @Override
-            public int compare(RuYiBean o1, RuYiBean o2) {
-                return o1.getTurnNum().compareTo(o2.getTurnNum());
-            }
-        });
 
         if (tunkNum.compareTo(dataByDate.get(dataByDate.size() -1 ).getTurnNum()) > 0){
             //大于今日最大期号

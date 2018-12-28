@@ -22,6 +22,11 @@ public interface RuYiHttpDao {
      */
     public List<RuYiBean> getDataByDate() throws IOException;
 
+    /**
+     * 获取当天的最后一条数据
+     * @return
+     */
+    public RuYiBean getLastDataByDate() throws IOException;
 
     /**
      * 获取指定日期指定期号的数据

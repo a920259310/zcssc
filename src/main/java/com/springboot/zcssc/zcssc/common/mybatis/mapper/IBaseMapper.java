@@ -1,4 +1,4 @@
-package com.springboot.zcssc.zcssc.mapper;
+package com.springboot.zcssc.zcssc.common.mybatis.mapper;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

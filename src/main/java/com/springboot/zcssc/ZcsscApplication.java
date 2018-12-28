@@ -1,9 +1,13 @@
 package com.springboot.zcssc;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@MapperScan("com.springboot.zcssc.zcssc.mapper")
+@EnableScheduling
 public class ZcsscApplication {
 
     public static void main(String[] args) {

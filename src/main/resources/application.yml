@@ -18,5 +18,26 @@ zcssc:
             passWord: a19931006
 
 spring:
-  profiles:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zcssc?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    hikari:
+      username: root
+      password: root
+
+mapper:
+    plugin: tk.mybatis.mapper.generator.MapperPlugin
+    Mapper: tk.mybatis.mapper.common.Mapper
+    mappers: com.springboot.zcssc.zcssc.common.mybatis.mapper.IBaseMapper
+    not-empty: false
+    identity: MYSQL
+mybatis:
+    type-aliases-package: com.springboot.zcssc.zcssc.bean.db
+    mapper-locations: classpath:mybatis/mapper/*.xml
+
+
+logging:
+  config: classpath:logback-boot.xml
+
+profiles:
     active: test
