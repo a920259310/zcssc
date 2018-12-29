@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,6 +30,16 @@ public class CpOpenDataServiceTest {
 //        cpOpenDataService.insertDataByDate(new Date());
 
         cpOpenDataService.insertToDayLastNewData(new Date());
+    }
+
+    @Test
+    public void anlyziByEndCpOpenData(){
+        CpOpenData cpOpenData = new CpOpenData();
+        cpOpenData.setOpenTrunkNumber("722702");
+        cpOpenData.setOpenIndex("0");
+
+        List<CpOpenData> cpOpenData1 = cpOpenDataService.anlyziByEndCpOpenData(cpOpenData, 6, 5);
+        System.out.println(cpOpenData1);
     }
 
 }

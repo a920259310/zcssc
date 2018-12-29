@@ -63,6 +63,11 @@ public interface CpOpenDataService extends BaseService<CpOpenData> {
     public Boolean validateOpenData(Date date,int mimute);
 
 
-
+    /**
+     * 分析预警号码详情
+     * @param trunkNumbers 预警期数
+     * @param upNumbers    集合上线个数
+     */
+    public List<CpOpenData> anlyziByEndCpOpenData(CpOpenData cpOpenData,int trunkNumbers,int upNumbers);
 
 }

@@ -15,9 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -173,24 +171,32 @@ public class CpOpenDataServiceImpl extends BaseServiceImpl<CpOpenData> implement
     }
 
     /**
-     *
+     * 连续多少期内,开过的数字不超过多少种
      * @param trunkNumbers 连续期数
-     * @param upNumbers    集合上线个数
+     * @param upNumbers    不同数字
      */
-    public void anlyziByEndCpOpenData(CpOpenData cpOpenData,int trunkNumbers,int upNumbers){
-
-
+    public List<CpOpenData> anlyziByEndCpOpenData(CpOpenData cpOpenData,int trunkNumbers,int upNumbers){
         Integer lastTrunkNumber = Integer.valueOf(cpOpenData.getOpenTrunkNumber());
-        int i1 = lastTrunkNumber - upNumbers;
 
         List<CpOpenData> list = new ArrayList<>();
-
-        for(int i = lastTrunkNumber; i < i1; i--){
-            CpOpenData cpOpenDataSelect = selectByCpTrunkNumberAndIndex(i + "", cpOpenData.getOpenIndex());
+        while (true){
+            CpOpenData cpOpenDataSelect = selectByCpTrunkNumberAndIndex(lastTrunkNumber + "", cpOpenData.getOpenIndex());
             list.add(cpOpenDataSelect);
+
+            Set<String> collect = list.stream().map(x -> {
+                return x.getOpenNumber();
+            }).collect(Collectors.toSet());
+            if(collect.size() > upNumbers){
+                break;
+            }
+            lastTrunkNumber--;
         }
 
+        CpOpenData remove = list.remove(list.size()-1);
 
+        if (list.size() >= trunkNumbers) return list;
+
+        return null;
     }
 
     public CpOpenData selectByCpTrunkNumberAndIndex(String trunkNumber,String index){
